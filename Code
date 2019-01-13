@@ -1,0 +1,63 @@
+'use script'
+
+function CoffeeMachine(fullName, circeCount, price) {
+
+    let splitter ='_';
+    let companyName = fullName.slice(0, fullName.indexOf(splitter));
+    let modelName = fullName.slice(fullName.indexOf('_') + 1, fullName.length - 1);
+    let isTurnOn = false;
+    const assuranceCirceClounе = circeCount;
+    let usedCount = 0;
+
+    let getFullName =function(){
+        return `${companyName}${splitter}${modelName}`;
+    }
+
+    this.turnOn=function () {
+        isTurnOn = true;
+    }.bind(this);
+
+    this.turnOff=function () {
+        isTurnOn = false;
+    }.bind(this);
+
+    Object.defineProperty(this,'companyName',{
+        get : ()=>{
+            return companyName;
+        }
+    });
+
+    Object.defineProperty(this,'modelName',{
+        set: (name) => { modelName = name },
+        get : ()=>{
+            return modelName;
+        }
+    });
+
+    this.clean = function(){
+        console.log('clean');
+    };
+
+    this.prepareLightCoffee = () =>{ prepareCoffee('light')};
+
+    this.prepareStrongCoffee = () =>{prepareCoffee('strong')};
+
+    let prepareCoffee = function(type) {
+        if(isTurnOn){
+            console.log('Prepare', type);
+        }
+        else {
+            console.log('Coffee Machine is turn off')
+        }
+    }.bind(this);
+}
+
+let machine = new CoffeeMachine('Marko_pio90', '50', '250');
+console.log(machine.companyName);
+console.log(machine.modelName);
+
+
+machine.turnOn();
+
+machine.clean();
+machine.prepareLightCoffee();
